@@ -10,8 +10,8 @@ render_mode world_vertex_coords, depth_draw_always;
 
 global uniform vec4 water_color : source_color;
 global uniform vec4 foam_color : source_color;
-uniform float depth_visibility_range = 37.0;
-uniform vec3 depth_color_consumption =vec3(7.5, 22.0, 38.0);
+uniform float depth_visibility_range = 38.0;
+uniform vec3 depth_color_consumption = vec3(7.5, 22.0, 38.0);
 
 
 uniform float roughness : hint_range(0.0, 1.0) = 0.4;
@@ -113,30 +113,28 @@ void fragment() {
 	
 	// ===================== shine through ===================================#
 	// Proximity Fade: Enabled
-	float depth_tex = textureLod(depth_texture, SCREEN_UV, 0.0).r;
-	//if (depth_tex > 0.00001)
-		//{ALPHA *= 0.99;}
+	float depth_tex = texture(depth_texture, SCREEN_UV).r;
+	float depth_tex_blur = textureLod(depth_texture, SCREEN_UV, 16.0).r;
+	if (depth_tex > 0.0001 && abs(depth_tex - depth_tex_blur) < 0.000001)
+		{ALPHA *= 0.99;}
 	vec4 world_pos = INV_PROJECTION_MATRIX * vec4(SCREEN_UV * 2.0 - 1.0, depth_tex, 1.0);
 	world_pos.xyz /= world_pos.w;
 	float smooth_alpha = 1.0 - smoothstep(world_pos.z + 0.66, world_pos.z, VERTEX.z);
 	ALPHA *= clamp(smooth_alpha, 0.00, 1.0);
 	
-	float factor_translucency =  1.0 - smoothstep(world_pos.z + ROUGHNESS * depth_visibility_range, world_pos.z, VERTEX.z);
+	float factor_translucency =  1.0 - smoothstep(world_pos.z + depth_visibility_range, world_pos.z, VERTEX.z);
 	factor_translucency = clamp(factor_translucency,0.35,1.0);
 	vec3 screen_albedo = texture(screen_texture, SCREEN_UV, 0.0).rgb;
 	vec3 depth_water_color = mix(screen_albedo, water_color.rgb, factor_translucency);
-	float factor_water_depth_tint = clamp(depth_visibility_range / 37.0,0.0,1.0);
+	//float factor_water_depth_tint = clamp(depth_visibility_range / max(depth_color_consumption.r,depth_color_consumption.g),0.0,1.0);
 	
-	float smooth_red = 0.0 + smoothstep(world_pos.z + depth_color_consumption.r * factor_water_depth_tint, world_pos.z, VERTEX.z);
-	float smooth_green = 0.0 + smoothstep(world_pos.z + depth_color_consumption.g * factor_water_depth_tint, world_pos.z, VERTEX.z);
-	float smooth_blue = 0.0 + smoothstep(world_pos.z + depth_color_consumption.b * factor_water_depth_tint, world_pos.z, VERTEX.z);
+	float smooth_red = 0.0 + smoothstep(world_pos.z + depth_color_consumption.r, world_pos.z, VERTEX.z);
+	float smooth_green = 0.0 + smoothstep(world_pos.z + depth_color_consumption.g, world_pos.z, VERTEX.z);
+	float smooth_blue = 0.0 + smoothstep(world_pos.z + depth_color_consumption.b, world_pos.z, VERTEX.z);
 	vec3 color_shallow = vec3(smooth_red, smooth_green, smooth_blue) * depth_water_color;
-	depth_water_color = mix(color_shallow*(1.0-ROUGHNESS), water_color.rgb, factor_translucency);
+	depth_water_color = mix(color_shallow, water_color.rgb, factor_translucency);
 	// ===================== shine through ===================================#
-	ALBEDO = mix(depth_water_color, foam_color.rgb, foam_factor * foam_alpha*foam_alpha);
-
-
-
+	ALBEDO = mix(depth_water_color, foam_color.rgb, foam_factor * foam_alpha * foam_alpha);
 }
 
 float smith_masking_shadowing(in float cos_theta, in float alpha) {

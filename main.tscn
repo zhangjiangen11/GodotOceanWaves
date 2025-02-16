@@ -109,7 +109,7 @@ albedo_color = Color(0.937563, 0.704479, 0.474746, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_dssde"]
 radius = 2.0
-height = 20.0
+height = 74.0
 radial_segments = 24
 rings = 4
 
@@ -135,7 +135,7 @@ transform = Transform3D(-0.996195, -0.0151344, 0.0858316, 0, 0.984807, 0.173648,
 script = ExtResource("4_v2yip")
 
 [node name="Water" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27, 0, -20)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -10)
 sorting_offset = 999.0
 material_override = ExtResource("5_lt75t")
 cast_shadow = 0
@@ -168,15 +168,14 @@ volume_db = -30.0
 autoplay = true
 
 [node name="Buoy" type="MeshInstance3D" parent="." node_paths=PackedStringArray("water")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.90356, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.52637, 0)
 material_override = SubResource("StandardMaterial3D_wy12m")
 mesh = SubResource("CapsuleMesh_dssde")
 script = ExtResource("16_veajc")
 water = NodePath("../Water")
 
-[node name="Buoy_t" type="MeshInstance3D" parent="." node_paths=PackedStringArray("water")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.083252, 0)
-visible = false
+[node name="Buoy_transparent" type="MeshInstance3D" parent="." node_paths=PackedStringArray("water")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -1.39893, 0)
 material_override = SubResource("StandardMaterial3D_vjgfr")
 mesh = SubResource("CapsuleMesh_dssde")
 script = ExtResource("16_veajc")
