@@ -13,4 +13,4 @@ func _process(delta: float) -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
-	global_position.y = water.get_height(global_position, 10)
+	global_position.y = water.get_height(global_position)
