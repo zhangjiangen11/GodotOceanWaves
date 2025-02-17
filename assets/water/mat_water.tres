@@ -13,9 +13,8 @@ seamless = true
 noise = SubResource("FastNoiseLite_uoul6")
 
 [resource]
-render_priority = -1
+render_priority = -2
 shader = ExtResource("1_uffek")
-shader_parameter/depth_visibility_range = 37.0
 shader_parameter/depth_color_consumption = Vector3(7.5, 22, 38)
 shader_parameter/roughness = 0.65
 shader_parameter/normal_strength = 1.0
