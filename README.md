@@ -1,9 +1,4 @@
-# GodotOceanWaves
-An open ocean rendering experiment in the Godot Engine utilizing the inverse Fourier transform of directional ocean-wave spectra for wave generation. A concise set of parameters is exposed, allowing for scriptable, real-time modification of wave properties to emulate a wide-variety of ocean-wave environments.
-
-[ocean_demo.mp4](https://github.com/user-attachments/assets/a8083878-a297-4536-a481-9123cea7e7df)
-
-## KrautDev Fork
+# KrautDev Fork of GodotOceanWaves
 This fork aims to add several features to make this amazing ocean implementation useable in a Godot game project.
 ### Functional
 #### Water Height at any Global Position
@@ -26,6 +21,12 @@ There are again different appraoches to not see the water surface in a boat:
 - [ ] mesh mask alpha above it (https://forum.godotengine.org/t/how-to-hide-the-water-plane-inside-a-boat/27380/2). That also means that any object with transparency cannot be seen in the boat. Also the mask only works as long as the camera is outside of the masking mesh.
 - [ ] vertex displacement: all vertices are pushed down to the height of the boat. I think it would work similarly to this https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.youtube.com/watch%3Fv%3DoMzI9DLgPKc&ved=2ahUKEwiPxsWouMqLAxUiYPEDHX9QAOIQtwJ6BAgQEAI&usg=AOvVaw0ws-MlQZ0GMym1ltAlimxn. The vertex shader would need a mask `M` that contains the difference between the water plane before displacements and the surface of the swimming body. Each vertex after displacement would query `M` with a UV that respects the summed displacements of the vertex and sets the Y coordinate accordingly. Since the water surface can be very large (e.g. 8 km), `M` would be much smaller and only roughly about the size of the boat. It would be necessary to scale and re-locate the adjusted UVs to query the correct position of a much smaller `M`.
 
+
+
+# GodotOceanWaves
+An open ocean rendering experiment in the Godot Engine utilizing the inverse Fourier transform of directional ocean-wave spectra for wave generation. A concise set of parameters is exposed, allowing for scriptable, real-time modification of wave properties to emulate a wide-variety of ocean-wave environments.
+
+[ocean_demo.mp4](https://github.com/user-attachments/assets/a8083878-a297-4536-a481-9123cea7e7df)
 
 ## Introduction
 ### Why Fourier Transforms?
