@@ -1,5 +1,5 @@
 # KrautDev Fork of GodotOceanWaves
-This fork aims to add several features to make this amazing ocean implementation useable in a Godot game project.
+This fork aims to add several features to make this amazing ocean implementation usable in a Godot game project.
 ### Functional
 #### Water Height at any Global Position
 - [x] Get current height of the water line at any world position. `water.gd` has `get_height(world_pos:Vector3, steps:int=3) -> float` that returns the global y value of a provided global position.
