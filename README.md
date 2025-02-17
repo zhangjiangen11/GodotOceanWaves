@@ -13,7 +13,7 @@ there are different approaches to do it for ships and other larger objects:
 - [x] 8 kilometers clipmap with LOD
 #### Waterline Transition
 [Light Penetration Spectrum in Water](https://upload.wikimedia.org/wikipedia/commons/9/95/Light_Penetration_Spectrum_in_Water_01.png)
-- [x] a transition is in place that simulates the absorption of red and green and finally blue light with increasing depth. This however assumes perfectly clear water.
+- [x] a transition is in place that simulates the absorption of red and green and finally blue light with increasing depth. This however assumes perfectly clear water and linear color reductions with complete color eliminations at: red:7.5m, green:22.0m, blue:38.0m.
 - [x] water visibility range control
 - [ ] allow less clear water by mixing in the water color
 #### Keep Water out of Boats
