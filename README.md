@@ -12,8 +12,10 @@ there are different approaches to do it for ships and other larger objects:
 #### Clip Map Resolution and Size
 - [x] 8 kilometers clipmap with LOD
 #### Waterline Transition
-[Light Penetration Spectrum in Water](https://upload.wikimedia.org/wikipedia/commons/9/95/Light_Penetration_Spectrum_in_Water_01.png)
-- [x] a transition is in place that simulates the absorption of red and green and finally blue light with increasing depth. This however assumes perfectly clear water and linear color reductions with complete color eliminations at: red:7.5m, green:22.0m, blue:38.0m.
+- [x] added a fade effect between the water and non-transparent geoemtries
+#### Depth dependend visibility of Objects
+Water appears blue if it is clear and the entering light contains blue light, but turqoise if it is shallow and turbulent. Here are some visualizations: (https://rwu.pressbooks.pub/webboceanography/chapter/6-5-light/)
+- [x] a transition is in place that simulates the absorption of red and green and finally blue light with increasing depth. The user can control these numbers in `water.gdshader` with the parameter `uniform vec3 depth_color_consumption = vec3(7.5, 22.0, 38.0);`. Coastal waters would absorb much more blue, so you would choose e.g. 18.0 for blue to make it greenish turqoise.
 - [x] water visibility range control
 - [ ] allow less clear water by mixing in the water color
 #### Keep Water out of Boats
