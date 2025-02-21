@@ -227,11 +227,11 @@ func get_height(world_pos:Vector3, steps:int=3) -> float:
 	for cascade_index in _cpu_displacement_textures.keys():
 		var displacement_scale:float = parameters[cascade_index].displacement_scale
 		var tile_length:Vector2 = parameters[cascade_index].tile_length
-		var img_uv:Vector2 = _world_to_uv(world_pos_xz, tile_length)
-		var d:Vector2 = Vector2(0.0,0.0)
-		var x:Vector2 = world_pos_xz-d
-		var y:Vector2 = Vector2(0.0,0.0)
-		var y_raw:Color
+		var d:Vector2 = Vector2.ZERO
+		var x:Vector2 = world_pos_xz
+		var y:Vector2 = Vector2.ZERO
+		var y_raw:Color=Color.BLACK
+		# iteratively approximate the correct uv to get the height of the vertex that was displaced in the XZ-axis
 		for i in range(steps):
 			var img_v = _world_to_uv(x, tile_length) * map_size
 			y_raw = _cpu_displacement_textures[cascade_index].get_pixelv(img_v)
